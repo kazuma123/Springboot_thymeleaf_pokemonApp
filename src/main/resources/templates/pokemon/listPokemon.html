@@ -50,17 +50,19 @@
 						</tbody>
 					</table>
 
-					<nav th:if="${listPokemon.totalPages > 0}"
+
+					<nav th:if="${listPokemon.getTotalPages() > 0}"
 						aria-label="Page navigation example">
 						<ul class="pagination justify-content-center">
-							<li class="page-item" th:each="pageNumber : ${pageNumbers}">
-								<a th:href="@{/(size=${listPokemon.size}, page=${pageNumber})}"
-								th:text=${pageNumber}
-								th:class="${pageNumber==listPokemon.number + 1} ? active"></a>
+							<li class="page-item"
+								th:classappend="${i eq listPokemon.number + 1} ? 'active'"
+								th:each="i : ${#numbers.sequence( 1, listPokemon.totalPages, 1)}">
+								<a class="page-link" th:href="@{/?page={tmpPag} (tmpPag=${i}) }"
+								th:text="${i}" th:title="${'Page '+ i}" data-toggle="tooltip"></a>
 							</li>
-
 						</ul>
 					</nav>
+					
 				</div>
 			</div>
 		</div>
