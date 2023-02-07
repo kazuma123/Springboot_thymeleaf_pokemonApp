@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="utf-8">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="description" content="">
+<meta name="author" content="">
+<link rel="icon" href="favicon.ico">
+
+<title>PokemonApp | Listado de Pokemones</title>
+<!-- Bootstrap core CSS -->
+<link th:href="@{/bootstrap/css/bootstrap.min.css}" rel="stylesheet">
+<!-- Custom styles for this template -->
+<link th:href="@{/bootstrap/css/jumbotron.css}" rel="stylesheet">
+<link th:href="@{/bootstrap/css/sticky-footer-navbar.css}"
+	rel="stylesheet">
+<link href="https://use.fontawesome.com/releases/v5.5.0/css/all.css"
+	rel="stylesheet">
+</head>
+
+<body>
+	<header th:insert="fragments/menu.html :: menu-principal"></header>
+	<main role="main">
+		<hr>
+		<div class="container">
+
+			<div class="card">
+				<h4 class="card-header">
+					<strong>Listado de Categorías</strong>
+				</h4>
+				<div class="card-body">
+					<table class="table table-hover">
+						<thead class="thead-light">
+							<tr>
+								<th scope="col">Id</th>
+								<th scope="col">Nombre</th>
+								<th scope="col">Opciones</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr th:each=" pokemon: ${listPokemon}">
+								<td th:text="${pokemon.id}"></td>
+								<td th:text="${pokemon.nombre}"></td>
+								<td><a
+									th:href="@{/findPokemonById/{id} (id = ${pokemon.id})}"
+									class="btn btn-success btn-sm" role="button" title="Detalle"><i
+										class="fas fa-pencil-alt" aria-hidden="true"></i></a></td>
+							</tr>
+						</tbody>
+					</table>
+
+					<nav th:if="${listPokemon.totalPages > 0}"
+						aria-label="Page navigation example">
+						<ul class="pagination justify-content-center">
+							<li class="page-item" th:each="pageNumber : ${pageNumbers}">
+								<a th:href="@{/(size=${listPokemon.size}, page=${pageNumber})}"
+								th:text=${pageNumber}
+								th:class="${pageNumber==listPokemon.number + 1} ? active"></a>
+							</li>
+
+						</ul>
+					</nav>
+				</div>
+			</div>
+		</div>
+		<!-- /container -->
+
+	</main>
+
+	<footer th:insert="fragments/footer.html :: pie-pagina" class="footer"></footer>
+
+
+	<!-- Bootstrap core JavaScript
+    ================================================== -->
+	<!-- Placed at the end of the document so the pages load faster -->
+	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+	<script th:src="@{/bootstrap/js/bootstrap.min.js}"></script>
+</body>
+</html>
