@@ -29,7 +29,7 @@ public class PokemonController {
 	PokemonService service;
 
 	@GetMapping("/")
-	public String mostrarHome(Model model, @RequestParam("page") Optional<Integer> page, 
+	public String listaPokemon(Model model, @RequestParam("page") Optional<Integer> page, 
 		      @RequestParam("size") Optional<Integer> size) throws JsonProcessingException, IOException {
 		
 		int currentPage = page.orElse(1);
@@ -51,7 +51,7 @@ public class PokemonController {
 	}
 
 	@GetMapping("/findPokemonById/{id}")
-	public String mostrarHome(@PathVariable("id") Long id, Model model) {
+	public String detallePokemon(@PathVariable("id") Long id, Model model) {
 		Pokemon listaUnico = service.buscarPokemon(id);
 		model.addAttribute("pokemon", listaUnico);
 		return "pokemon/detallePokemon";
